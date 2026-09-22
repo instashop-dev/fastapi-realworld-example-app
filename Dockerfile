@@ -11,9 +11,10 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY poetry.lock pyproject.toml ./
-RUN pip install "poetry==1.1.15" "poetry-core==1.0.8" && \
+RUN pip install "poetry==1.1.15" "poetry-core==1.0.8" "setuptools<81" && \
     poetry config virtualenvs.in-project true && \
-    poetry install --no-dev
+    poetry install --no-dev && \
+    poetry run pip install "setuptools<81"
 
 COPY . ./
 
